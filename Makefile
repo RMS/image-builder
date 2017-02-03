@@ -12,6 +12,20 @@ ifeq ($(no_cache), true)
     NO_CACHE = --no-cache
 endif
 
+build-ubuntu-14.04-thin:
+ifndef NO_CACHE
+	docker-cache-shim pull ${IMAGE_REPO} || true
+endif
+	echo "Building Docker image ubuntu-14.04-thin-$(VERSION)"
+	docker build $(NO_CACHE) --build-arg IMAGE_TAG=ubuntu-14.04-thin-$(VERSION) \
+	-t $(IMAGE_REPO):ubuntu-14.04-thin-$(VERSION) \
+	-f targets/ubuntu-14.04-thin/Dockerfile \
+	.
+
+push-ubuntu-14.04-thin:
+	docker-cache-shim push ${IMAGE_REPO}:ubuntu-14.04-thin-$(VERSION)
+	$(call docker-push-with-retry,$(IMAGE_REPO):ubuntu-14.04-thin-$(VERSION))
+
 ### ubuntu-14.04-XXL
 # This build image is used on circleci.com Ubuntu 14.04 fleet.
 # This is the fattest image that we manage: many versions of various programming languages
