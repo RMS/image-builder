@@ -15,7 +15,7 @@ endif
 
 build-ubuntu-14.04-thin:
 ifndef NO_CACHE
-	docker pull ${IMAGE_REPO} || true
+	sudo docker pull ${IMAGE_REPO} || true
 endif
 	echo "Building Docker image ubuntu-14.04-thin-$(VERSION)"
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=ubuntu-14.04-thin-$(VERSION) \
