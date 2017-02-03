@@ -26,6 +26,8 @@ push-ubuntu-14.04-thin:
 	docker-cache-shim push ${IMAGE_REPO}:ubuntu-14.04-thin-$(VERSION)
 	$(call docker-push-with-retry,$(IMAGE_REPO):ubuntu-14.04-thin-$(VERSION))
 
+ubuntu-14.04-thin: build-ubuntu-14.04-thin push-ubuntu-14.04-thin
+
 ### ubuntu-14.04-XXL
 # This build image is used on circleci.com Ubuntu 14.04 fleet.
 # This is the fattest image that we manage: many versions of various programming languages
