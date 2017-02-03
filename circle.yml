@@ -16,7 +16,7 @@ dependencies:
     # Fail early if no build targets
     - make --dry-run ${BUILD_TARGET:-notarget}
 
-    - docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
+    - sudo docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
 
     - ? |
         if $(no_cache); then
