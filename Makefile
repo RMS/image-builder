@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 IMAGE_REPO = circleci/build-image
+PUSH_REPO =
 SHA = $(shell git rev-parse --short HEAD)
 VERSION = $(CIRCLE_BUILD_NUM)-$(SHA)
 NO_CACHE =
@@ -14,17 +15,17 @@ endif
 
 build-ubuntu-14.04-thin:
 ifndef NO_CACHE
-	docker-cache-shim pull ${IMAGE_REPO} || true
+	docker pull ${IMAGE_REPO} || true
 endif
 	echo "Building Docker image ubuntu-14.04-thin-$(VERSION)"
-	docker build $(NO_CACHE) --build-arg IMAGE_TAG=ubuntu-14.04-thin-$(VERSION) \
-	-t $(IMAGE_REPO):ubuntu-14.04-thin-$(VERSION) \
+	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=ubuntu-14.04-thin-$(VERSION) \
+	-t $(PUSH_REPO):ubuntu-14.04-thin-$(VERSION) \
 	-f targets/ubuntu-14.04-thin/Dockerfile \
 	.
 
 push-ubuntu-14.04-thin:
-	docker-cache-shim push ${IMAGE_REPO}:ubuntu-14.04-thin-$(VERSION)
-	$(call docker-push-with-retry,$(IMAGE_REPO):ubuntu-14.04-thin-$(VERSION))
+	sudo docker push ${PUSH_REPO}:ubuntu-14.04-thin-$(VERSION)
+	#$(call docker-push-with-retry,$(PUSH_REPO):ubuntu-14.04-thin-$(VERSION))
 
 ubuntu-14.04-thin: build-ubuntu-14.04-thin push-ubuntu-14.04-thin
 
