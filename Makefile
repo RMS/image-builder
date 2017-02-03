@@ -20,7 +20,7 @@ endif
 	echo "Building Docker image ubuntu-14.04-thin-$(VERSION)"
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=ubuntu-14.04-thin-$(VERSION) \
 	-t $(PUSH_REPO):ubuntu-14.04-thin-$(VERSION) \
-	-f targets/ubuntu-14.04-thin/Dockerfile \
+	-f /home/ubuntu/image-builder/targets/ubuntu-14.04-thin/Dockerfile \
 	.
 
 push-ubuntu-14.04-thin:
