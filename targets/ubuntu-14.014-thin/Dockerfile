@@ -3,7 +3,7 @@ FROM circleci/ubuntu-server:trusty-latest
 ENV VERBOSE true
 
 ADD circleci-install /usr/local/bin/circleci-install
-ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/
+ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 ADD circleci-provision-scripts/base.sh circleci-provision-scripts/circleci-specific.sh /opt/circleci-provision-scripts/
 RUN circleci-install base_requirements && circleci-install circleci_specific
 
@@ -24,6 +24,14 @@ RUN circleci-install scala
 
 ADD circleci-provision-scripts/go.sh /opt/circleci-provision-scripts/go.sh
 RUN circleci-install golang 1.6.2
+
+ADD circleci-provision-scripts/postgres.sh  /opt/circleci-provision-scripts/postgres.sh
+RUN circleci-install postgres
+
+ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.sh
+RUN circleci-install docker && circleci-install docker_compose
+RUN circleci-install circleci_docker
+
 
 USER ubuntu
 
