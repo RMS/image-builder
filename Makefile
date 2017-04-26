@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 IMAGE_REPO = circleci/build-image
-PUSH_REPO = "eastus-artifactory.azure.rmsonecloud.net:6001"
+PUSH_REPO = eastus-artifactory.azure.rmsonecloud.net:6001
 SHA = $(shell git rev-parse --short HEAD)
 VERSION = $(CIRCLE_BUILD_NUM)-$(SHA)
 NO_CACHE =
@@ -19,12 +19,12 @@ ifndef NO_CACHE
 endif
 	echo "Building Docker image buildbox-$(VERSION)"
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=buildbox-$(VERSION) \
-	-t $(PUSH_REPO):buildbox-$(VERSION) \
+	-t $(PUSH_REPO)/buildbox-$(VERSION) \
 	-f targets/ubuntu-14.04-thin/Dockerfile \
 	.
 
 push-ubuntu-14.04-thin:
-	sudo docker push ${PUSH_REPO}:buildbox-$(VERSION)
+	sudo docker push ${PUSH_REPO}/buildbox-$(VERSION)
 	#$(call docker-push-with-retry,$(PUSH_REPO):ubuntu-14.04-thin-$(VERSION))
 
 ubuntu-14.04-thin: build-ubuntu-14.04-thin push-ubuntu-14.04-thin
