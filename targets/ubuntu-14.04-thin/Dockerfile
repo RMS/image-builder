@@ -7,6 +7,11 @@ ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 ADD circleci-provision-scripts/base.sh circleci-provision-scripts/circleci-specific.sh /opt/circleci-provision-scripts/
 RUN circleci-install base_requirements && circleci-install circleci_specific
 
+ARG use_precompile=true
+ENV USE_PRECOMPILE=$use_precompile RUN_APT_UPDATE=true
+RUN curl -s https://packagecloud.io/install/repositories/circleci/trusty/script.deb.sh | sudo bash
+
+ADD circleci-provision-scripts/python.sh /opt/circleci-provision-scripts/python.sh
 RUN circleci-install python 2.7.12
 RUN circleci-install python 3.5.2
 RUN sudo -H -i -u ubuntu pyenv global 3.5.2
