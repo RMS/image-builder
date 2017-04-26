@@ -2,6 +2,14 @@ FROM circleci/ubuntu-server:trusty-latest
 
 ENV VERBOSE true
 
+# Avoid any installation scripts interact with upstart
+# So divert now, but undivert at the end
+# You shouldn't change the line unless you understand the consequence
+RUN echo 'exit 101' > /usr/sbin/policy-rc.d \
+	&& chmod +x /usr/sbin/policy-rc.d \
+        && dpkg-divert --local --rename --add /sbin/initctl \
+        && ln -s /bin/true /sbin/initctl
+
 ADD circleci-install /usr/local/bin/circleci-install
 ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 ADD circleci-provision-scripts/base.sh circleci-provision-scripts/circleci-specific.sh /opt/circleci-provision-scripts/
@@ -17,7 +25,6 @@ RUN circleci-install python 3.5.2
 RUN sudo -H -i -u ubuntu pyenv global 3.5.2
 
 RUN circleci-install rms
-
 
 ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
 RUN circleci-install nodejs 6.1.0
@@ -39,11 +46,16 @@ ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.
 RUN circleci-install docker && circleci-install docker_compose
 RUN circleci-install circleci_docker
 
+# Undivert upstart
+# You shouldn't change the line unless you understad the consequence
+RUN rm /usr/sbin/policy-rc.d && rm /sbin/initctl && dpkg-divert --rename --remove /sbin/initctl
+
 ARG IMAGE_TAG
 RUN echo $IMAGE_TAG > /opt/circleci/image_version
 
-USER ubuntu
-
-CMD ["/bin/bash"]
-
 LABEL circleci.user="ubuntu"
+
+RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
+
+USER root
+CMD ["/sbin/init"]
