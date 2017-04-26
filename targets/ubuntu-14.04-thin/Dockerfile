@@ -18,8 +18,10 @@ RUN sudo -H -i -u ubuntu pyenv global 3.5.2
 
 RUN circleci-install rms
 
-RUN circleci-install nodejs 4.2.6
-RUN sudo -H -i -u ubuntu nvm alias default 4.2.6
+
+ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
+RUN circleci-install nodejs 6.1.0
+RUN sudo -H -i -u ubuntu nvm alias default 6.1.0
 
 ADD circleci-provision-scripts/java.sh /opt/circleci-provision-scripts/java.sh
 RUN circleci-install java oraclejdk8 && circleci-install java openjdk8
