@@ -39,6 +39,8 @@ ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.
 RUN circleci-install docker && circleci-install docker_compose
 RUN circleci-install circleci_docker
 
+ARG IMAGE_TAG
+RUN echo $IMAGE_TAG > /opt/circleci/image_version
 
 USER ubuntu
 
