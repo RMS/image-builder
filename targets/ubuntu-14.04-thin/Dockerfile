@@ -21,10 +21,8 @@ RUN curl -s https://packagecloud.io/install/repositories/circleci/trusty/script.
 
 ADD circleci-provision-scripts/python.sh /opt/circleci-provision-scripts/python.sh
 RUN circleci-install python 2.7.12
-RUN circleci-install python 3.5.2
-RUN sudo -H -i -u ubuntu pyenv global 3.5.2
-
-RUN circleci-install rms
+RUN circleci-install python 3.6.1
+RUN sudo -H -i -u ubuntu pyenv global 3.6.1
 
 ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
 RUN circleci-install nodejs 6.1.0
@@ -45,6 +43,8 @@ RUN circleci-install postgres
 ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.sh
 RUN circleci-install docker && circleci-install docker_compose
 RUN circleci-install circleci_docker
+
+RUN circleci-install rms
 
 # Undivert upstart
 # You shouldn't change the line unless you understad the consequence
