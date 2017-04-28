@@ -28,6 +28,7 @@ sudo vault server -dev -dev-root-token-id="test-token" &
 sleep 10s
 consul kv put system/domain azure.rmsonecloud.net
 consul kv put system/environment test
+export VAULT_ADDRESS=http://127.0.1:8200
 sudo vault write secret/postgres/user value=postgres
 sudo vault write secret/postgres/password value=password
 sudo vault write secret/2/postgres/user value=postgres2
