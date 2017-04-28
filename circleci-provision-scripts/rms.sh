@@ -28,10 +28,11 @@ sudo vault server -dev -dev-root-token-id="test-token" &
 sleep 10s
 consul kv put system/domain azure.rmsonecloud.net
 consul kv put system/environment test
-sudo vault write secret/postgres/user value=postgres
-sudo vault write secret/postgres/password value=password
-sudo vault write secret/2/postgres/user value=postgres2
-sudo vault policy-write rms-policy rms.hcl
+export VAULT_ADDR=http://127.0.1:8200/
+sudo -E vault write secret/postgres/user value=postgres
+sudo -E vault write secret/postgres/password value=password
+sudo -E vault write secret/2/postgres/user value=postgres2
+sudo -E vault policy-write rms-policy rms.hcl
 curl -X POST -H "X-Vault-Token:test-token" -d '{"type":"approle"}' http://127.0.0.1:8200/v1/sys/auth/approle
 curl -X POST -H "X-Vault-Token:test-token" -d '{"policies":"rms-policy"}' http://127.0.0.1:8200/v1/auth/approle/role/rms
 sudo echo "export VAULT_SECRET_ID=$(export VAULT_ADDR=http://127.0.1:8200/ && curl --silent -X POST -H "X-Vault-Token:test-token" http://127.0.0.1:8200/v1/auth/approle/role/rms/secret-id | jq -r .data.secret_id)" >> ~/.circlerc
