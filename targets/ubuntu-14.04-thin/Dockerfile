@@ -11,7 +11,6 @@ RUN echo 'exit 101' > /usr/sbin/policy-rc.d \
         && ln -s /bin/true /sbin/initctl
 
 ADD circleci-install /usr/local/bin/circleci-install
-ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 ADD circleci-provision-scripts/base.sh circleci-provision-scripts/circleci-specific.sh /opt/circleci-provision-scripts/
 RUN circleci-install base_requirements && circleci-install circleci_specific
 
@@ -44,6 +43,7 @@ ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.
 RUN circleci-install docker && circleci-install docker_compose
 RUN circleci-install circleci_docker
 
+ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 RUN circleci-install rms
 
 # Undivert upstart
