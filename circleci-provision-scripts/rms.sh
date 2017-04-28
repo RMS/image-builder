@@ -3,18 +3,18 @@ function install_rms() {
   (cat <<'EOF'
 source ~/.circlerc
 pyenv global 3.6.1
-sudo pip install lxml
-sudo pip install marathon
-sudo pip install dcos==0.4.14
-sudo pip install Jinja2==2.8
-sudo pip install msrestazure==0.4.1
-sudo pip install paramiko==2.0.1
-sudo pip install scp==0.10.2
-sudo pip install PyYAML==3.12
-sudo pip install azure==2.0.0rc5
-sudo pip install consul_kv
-sudo pip install keyring
-sudo pip install requests
+sudo pip3 install lxml
+sudo pip3 install marathon
+sudo pip3 install dcos==0.4.14
+sudo pip3 install Jinja2==2.8
+sudo pip3 install msrestazure==0.4.1
+sudo pip3 install paramiko==2.0.1
+sudo pip3 install scp==0.10.2
+sudo pip3 install PyYAML==3.12
+sudo pip3 install azure==2.0.0rc5
+sudo pip3 install consul_kv
+sudo pip3 install keyring
+sudo pip3 install requests
 sudo apt-get install jq
 sudo wget https://releases.hashicorp.com/consul/0.7.3/consul_0.7.3_linux_amd64.zip
 sudo wget https://releases.hashicorp.com/vault/0.6.4/vault_0.6.4_linux_amd64.zip
