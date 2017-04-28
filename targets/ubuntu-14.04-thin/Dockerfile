@@ -43,6 +43,7 @@ ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.
 RUN circleci-install docker && circleci-install docker_compose
 RUN circleci-install circleci_docker
 
+ADD circleci-provision-scripts/rms.hcl /opt/rms.hcl
 ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 RUN circleci-install rms
 
