@@ -3,7 +3,7 @@
 function install_chrome_browser() {
     echo '>>> Installing Chrome'
 
-    local url="https://s3.amazonaws.com/circle-downloads/google-chrome-stable_54.0.2840.100-1_amd64.deb"
+    local url="http://mirror.glendaleacademy.org/chrome/pool/main/g/google-chrome-stable/google-chrome-stable_57.0.2987.133-1_amd64.deb"
     local deb_path="/tmp/google-chrome.deb"
 
     curl --output $deb_path $url

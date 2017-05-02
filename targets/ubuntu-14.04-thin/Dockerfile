@@ -47,8 +47,8 @@ ADD circleci-provision-scripts/rms.hcl /opt/rms.hcl
 ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 RUN circleci-install rms
 
-ADD circleci-provision-scripts/firefox.sh circleci-provision-scripts/chrome.sh /opt/circleci-provision-scripts/
-RUN circleci-install firefox && circleci-install chrome
+ADD circleci-provision-scripts/firefox.sh /opt/circleci-provision-scripts/
+RUN circleci-install firefox
 
 # Undivert upstart
 # You shouldn't change the line unless you understad the consequence
