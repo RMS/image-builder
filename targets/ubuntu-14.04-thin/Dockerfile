@@ -46,6 +46,7 @@ RUN circleci-install circleci_docker
 ADD circleci-provision-scripts/rms.hcl /opt/rms.hcl
 ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 RUN circleci-install rms
+RUN circleci-install redis
 
 ADD circleci-provision-scripts/firefox.sh circleci-provision-scripts/chrome.sh /opt/circleci-provision-scripts/
 RUN circleci-install firefox && circleci-install chrome
