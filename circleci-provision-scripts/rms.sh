@@ -28,9 +28,9 @@ sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get -qqy update
 sudo apt-get -qqy install ansible
 
-wget http://download.redis.io/releases/redis-3.2.0.tar.gz
+sudo wget http://download.redis.io/releases/redis-3.2.0.tar.gz
 sudo tar xzf redis-3.2.0.tar.gz
-cd redis-3.2.0 && make
+sudo cd redis-3.2.0 && make
 
 EOF
   ) | as_user bash
