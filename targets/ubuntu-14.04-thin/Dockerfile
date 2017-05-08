@@ -64,5 +64,5 @@ LABEL circleci.user="ubuntu"
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
 USER root
-RUN service start redis-server
+RUN service redis-server start
 CMD ["/sbin/init"]
