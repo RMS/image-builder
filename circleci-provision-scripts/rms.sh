@@ -14,6 +14,7 @@ pip install PyYAML==3.12
 pip install azure==2.0.0rc5
 pip install consul_kv
 pip install keyring
+pip install hvac
 pip install requests
 sudo apt-get install jq
 sudo wget https://releases.hashicorp.com/consul/0.7.3/consul_0.7.3_linux_amd64.zip
