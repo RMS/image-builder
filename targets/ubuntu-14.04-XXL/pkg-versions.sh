@@ -83,7 +83,8 @@ cat<<EOF
         $(all_nodejs)
       ],
       "npm": "$(npm --version)",
-      "nvm": "$(. $CIRCLECI_PKG_DIR/.nvm/nvm.sh && nvm --version)"
+      "nvm": "$(. $CIRCLECI_PKG_DIR/.nvm/nvm.sh && nvm --version)",
+      "yarn": "$(yarn --version)"
     },
     "php": {
       "default": "$(php --version | head -1 | col 2)",
@@ -106,7 +107,8 @@ cat<<EOF
       ],
       "cabal": "$(cabal --version | head -1 | col 3)",
       "alex": "$(alex --version | col 3 | trailing_last_comma)",
-      "happy": "$(happy --version | head -1 | col 3)"
+      "happy": "$(happy --version | head -1 | col 3)",
+      "stack": "$(stack --version | col 2 | trailing_last_comma)"
     },
     "scala": {
       "all": [
@@ -116,6 +118,7 @@ cat<<EOF
     "redis": "$(redis-server --version | col 3 | sed 's/^v=//')",
     "memcached": "$(memcached -h | head -1 | col 2)",
     "git": "$(git --version | col 3)",
+    "git-lfs": "$(git-lfs version | col 1 | sed -e s/git-lfs\\///)",
     "gcc": "$(gcc --version | head -n1 | col 4)",
     "g++": "$(g++ --version | head -n1 | col 4)",
     "cc": "$(cc --version | head -1 | col 4)",
@@ -137,8 +140,7 @@ cat<<EOF
     "phantomjs": "$(phantomjs --version)",
     "docker": "$(docker --version | col 3 | sed 's/-circleci.*//')",
     "docker-compose": "$(docker-compose --version | col 3 | sed 's/,//g')",
-    "heroku-toolbelt": "$(heroku version | grep toolbelt | col 1 | sed 's|.*/||')",
-    "gcloud": "$(/opt/google-cloud-sdk/bin/gcloud version | grep "Google Cloud SDK" | col 4)",
+    "gcloud": "$(gcloud version | grep "Google Cloud SDK" | col 4)",
     "aws-cli": "$(aws --version 2>&1  | col 1 | sed 's|.*/||')",
     "android": {
       "build-tool": "$(grep 'Pkg.Revision=' $ANDROID_HOME/tools/source.properties | sed 's/Pkg.Revision=//')",
@@ -160,8 +162,7 @@ cat<<EOF
       "google-extra": [
         $(ls $ANDROID_HOME/extras/google | quotify | commatize | trailing_last_comma)
       ]
-    },
-	"yarn": "$(yarn --version)"
+    }
   },
   "all": {
     $(dpkg -l | grep -e '^ii' | awk '{printf "\"%s\": \"%s\",\n", $2,$3}' | trailing_last_comma)

@@ -1,6 +1,8 @@
 #!/usr/bin/env bats
 
 load ../test_helper_php
+load ../bats-support/load
+load ../bats-assert/load
 
 @test "php: all versions are installed" {
     php_test_all_installed
@@ -10,7 +12,7 @@ load ../test_helper_php
 @test "php: default is 5.6.17" {
     run php_test_version 5.6.17
 
-    [ "$status" -eq 0 ]
+    assert_success
 }
 
 @test "php: 5.5.31 works" {
@@ -37,10 +39,6 @@ load ../test_helper_php
     test_php 5.6.22
 }
 
-@test "php: 7.0.4 works" {
-    test_php 7.0.4
-}
-
 @test "php: 7.0.7 works" {
     test_php 7.0.7
 }
@@ -49,6 +47,26 @@ load ../test_helper_php
     test_php 7.0.11
 }
 
-@test "php: 7.1.0 works" {
-    test_php 7.1.0
+@test "php: 7.0.17 works" {
+    test_php 7.0.17
+}
+
+@test "php: 7.0.20 works" {
+    test_php 7.0.20
+}
+
+@test "php: 7.0.24 works" {
+    test_php 7.0.24
+}
+
+@test "php: 7.1.3 works" {
+    test_php 7.1.3
+}
+
+@test "php: 7.1.6 works" {
+    test_php 7.1.6
+}
+
+@test "php: 7.1.9 works" {
+    test_php 7.1.9
 }

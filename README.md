@@ -48,36 +48,20 @@ Note: only Docker version is different. We install the latest version of Docker.
 
 `circleci/build-image:ubuntu-14.04-XXL-enterprise-<VERSION>`
 
-### Ubuntu 14.04 XL
+## How to trigger a build/job
 
-**Description**
+`image-builder` builds are currently running on [CircleCI 2.0!!](https://circleci.com/beta-access/) and each build image can be
+built by running a corresponding job.
 
-This image is the slimmer version of Ubuntu 14.04 XXL build image. The same versions of languages and tools as Ubuntu 14.04 XXL are pre-installed but services such as PostgreSQL
-or Redis aren't installed. The build image is designed to be used with network services provided through the docker composing mechanism.
+If you have the permission to trigger `image-build` build, then you can trigger a build by using `trigger-job.sh`
 
-**List of installed software**
+```
+Example:
 
-https://circleci.com/docs/environments/ubuntu-14.04-XL.json
+./trigger-job.sh ubuntu-14.04-XXL my-test-branch
+```
 
-**Docker image tag**
-
-`circleci/build-image:ubuntu-14.04-XL-<VERSION>`
-
-### Ubuntu 14.04 XXL-upstart
-
-**Description**
-
-This image behaves like a VM, with upstart being PID 1. Actions default to running as root
-and services (e.g. postgres, redis) are allowed without requiring to use another images.
-The images matches the content of Ubuntu 14.04 XXL.
-
-**List of installed software**
-
-https://circleci.com/docs/environments/ubuntu-14.04-XXL-upstart.json
-
-**Docker image tag**
-
-`circleci/build-image:ubuntu-14.04-XXL-upstart-<VERSION>`
+Run `./trigger-job.sh --help` for more information.
 
 # Building custom image
 
@@ -195,11 +179,14 @@ You must configure CircleCI Enterprise builders to point to the container
 image.  You can do so, by passing additional environment variable in your
 launch configuration: `CIRCLE_CONTAINER_IMAGE_URI`.
 
-Currently, builders can only support public http or S3 uris (e.g.
+
+### Docker-based build containers
+If you are using the [Single-Box install](https://circleci.com/docs/enterprise/single-box/) or a [clustered install using Docker](https://circleci.com/docs/enterprise/docker-install/), then you can simply set the `CIRCLE_CONTAINER_IMAGE_URI` env var as documented [here](https://circleci.com/docs/enterprise/docker-builder-config/) to e.g. `docker://my-hub-account/my-image:my-tag` after pushing to public Docker Hub. (You can also use any other registry accessable to your docker daemon.)
+
+### LXC-based build containers
+If you are using LXC-based builders, you will need to follow these instructions to export the container image to an LXC format and expose it via an http or S3 uri (e.g.
 `https://example.com/container_0.0.1.tar.gz` or
-`s3://example/container_0.0.1.tar.gz`.  Future releases will support docker
-URIs (e.g. `docker://acme-org/circleci-test-image:0.0.1`).  For the timebeing,
-we suggest exporting the container and uploading it to S3.
+`s3://example/container_0.0.1.tar.gz`).
 
 Assuming you have the official aws-cli client, you can export the container and
 upload it to a bucket of your choice.  Ideally, it's located in the same region
