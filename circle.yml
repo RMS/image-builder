@@ -18,9 +18,6 @@ dependencies:
 
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
-    - export
-    
-
     - ? |
         if $(no_cache); then
           make no_cache=true build-$BUILD_TARGET
