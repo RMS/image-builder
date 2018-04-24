@@ -98,6 +98,7 @@ function install_maven() {
     curl -sSL -o /tmp/maven.tar.gz http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
     tar -xz -C /usr/local -f /tmp/maven.tar.gz
     ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/apache-maven
+    ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/mvn
     rm -rf /tmp/maven.tar.gz
 
     as_user mkdir -p ${CIRCLECI_HOME}/.m2
