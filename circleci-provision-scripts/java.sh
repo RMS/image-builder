@@ -104,7 +104,7 @@ function install_maven() {
 
     as_user mkdir -p ${CIRCLECI_HOME}/.m2
 
-    echo 'export M2_HOME=/usr/local/apache-maven' >> ${CIRCLECI_HOME}/.circlerc
+    echo 'export M2_HOME=/usr/local/apache-maven-${MAVEN_VERSION}' >> ${CIRCLECI_HOME}/.circlerc
     echo 'export MAVEN_OPTS=-Xmx2048m' >> ${CIRCLECI_HOME}/.circlerc
     echo 'export PATH=$M2_HOME/bin:$PATH' >> ${CIRCLECI_HOME}/.circlerc
 }
