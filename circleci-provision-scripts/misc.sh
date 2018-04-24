@@ -1,6 +1,7 @@
 #/bin/bash
 
 function install_redis() {
+    echo 'ignored'
     #apt-get install redis-server
     # disable init.d script for redis
     #update-rc.d redis-server disable
