@@ -99,6 +99,7 @@ function install_maven() {
     tar -xz -C /usr/local -f /tmp/maven.tar.gz
     ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/apache-maven
     ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/mvn
+    ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/bin/mvn
     rm -rf /tmp/maven.tar.gz
 
     as_user mkdir -p ${CIRCLECI_HOME}/.m2
