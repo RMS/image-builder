@@ -97,16 +97,15 @@ function install_maven() {
      MAVEN_VERSION=3.5.3
      curl -sSL -o /tmp/maven.tar.gz http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
      tar -xz -C /usr/local -f /tmp/maven.tar.gz
+
      ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/apache-maven
-     ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/mvn
-     ln -sf /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/bin/mvn
      rm -rf /tmp/maven.tar.gz
 
      as_user mkdir -p ${CIRCLECI_HOME}/.m2
 
     # apt-get install -y maven
 
-    echo 'export M2_HOME=/usr/local/apache-maven-${MAVEN_VERSION}' >> ${CIRCLECI_HOME}/.circlerc
+    echo 'export M2_HOME=/usr/local/apache-maven' >> ${CIRCLECI_HOME}/.circlerc
     echo 'export MAVEN_OPTS=-Xmx2048m' >> ${CIRCLECI_HOME}/.circlerc
     echo 'export PATH=$M2_HOME/bin:$PATH' >> ${CIRCLECI_HOME}/.circlerc
 }
