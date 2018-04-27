@@ -48,7 +48,7 @@ ADD circleci-provision-scripts/rms.sh /opt/circleci-provision-scripts/rms.sh
 RUN circleci-install rms
 ADD circleci-provision-scripts/misc.sh /opt/circleci-provision-scripts/misc.sh
 RUN circleci-install redis
-# RUN sudo service redis-server start
+RUN sudo service redis-server start
 
 ADD circleci-provision-scripts/firefox.sh circleci-provision-scripts/chrome.sh /opt/circleci-provision-scripts/
 RUN circleci-install firefox && circleci-install chrome
