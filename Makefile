@@ -25,7 +25,7 @@ endif
 
 push-ubuntu-14.04-thin:
 	echo 'skipping push'
-#	sudo docker push ${PUSH_REPO}/buildbox
+	sudo docker push ${PUSH_REPO}/buildbox
 	#$(call docker-push-with-retry,$(PUSH_REPO):ubuntu-14.04-thin-$(VERSION))
 
 ubuntu-14.04-thin: build-ubuntu-14.04-thin push-ubuntu-14.04-thin
