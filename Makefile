@@ -19,7 +19,7 @@ ifndef NO_CACHE
 endif
 	echo "Building Docker image buildbox-$(VERSION)"
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=buildbox \
-	-t $(PUSH_REPO)/buildbox \
+	-t $(PUSH_REPO)/buildbox:0.0.0-BOOTH \
 	-f targets/ubuntu-14.04-thin/Dockerfile \
 	.
 
