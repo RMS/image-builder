@@ -20,6 +20,14 @@ dependencies:
     - sudo docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
 
     - ? |
+        if [ "$CIRCLE_BRANCH" == "ci-azure" ]; then
+          echo "In 'ci-azure' branch, building production 'buildbox' image with tag 'latest'"
+          export TAG=latest
+        else
+          echo "Building a test image with tag $CIRCLE_BRANCH"
+          export TAG=$CIRCLE_BRANCH
+        fi
+
         if $(no_cache); then
           make no_cache=true build-$BUILD_TARGET
         else
