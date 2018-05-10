@@ -20,7 +20,7 @@ dependencies:
     - sudo docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
 
     - ? |
-        if [ "$CIRCLE_BRANCH" == "ci-azure"]; then
+        if [ "$CIRCLE_BRANCH" == "ci-azure" ]; then
           echo "In 'ci-azure' branch, building production 'buildbox' image with tag 'latest'"
           export TAG=latest
         else
