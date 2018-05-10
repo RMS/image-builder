@@ -24,7 +24,7 @@ endif
 	.
 
 push-ubuntu-14.04-thin:
-	echo 'Pushing Docker iamge $(PUSH_REPO)/buildbox:$(TAG)'
+	echo 'Pushing Docker image $(PUSH_REPO)/buildbox:$(TAG)'
 	sudo docker push ${PUSH_REPO}/buildbox:$(TAG)
 	#$(call docker-push-with-retry,$(PUSH_REPO):ubuntu-14.04-thin-$(VERSION))
 
