@@ -39,6 +39,7 @@ RUN circleci-install golang 1.6.2
 
 ADD circleci-provision-scripts/postgres.sh  /opt/circleci-provision-scripts/postgres.sh
 RUN circleci-install postgres
+RUN circleci-install postgres_ext_postgis
 
 ADD circleci-provision-scripts/docker.sh /opt/circleci-provision-scripts/docker.sh
 RUN circleci-install docker && circleci-install docker_compose
