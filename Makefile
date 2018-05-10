@@ -17,14 +17,14 @@ build-ubuntu-14.04-thin:
 ifndef NO_CACHE
 	sudo docker pull ${IMAGE_REPO} || true
 endif
-	echo "Building Docker image buildbox-$(VERSION)"
+	echo "Building Docker image $(PUSH_REPO)/buildbox:$(TAG)"
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=buildbox \
 	-t $(PUSH_REPO)/buildbox:$(TAG) \
 	-f targets/ubuntu-14.04-thin/Dockerfile \
 	.
 
 push-ubuntu-14.04-thin:
-	echo 'skipping push'
+	echo 'Pushing Docker iamge $(PUSH_REPO)/buildbox:$(TAG)'
 	sudo docker push ${PUSH_REPO}/buildbox:$(TAG)
 	#$(call docker-push-with-retry,$(PUSH_REPO):ubuntu-14.04-thin-$(VERSION))
 
