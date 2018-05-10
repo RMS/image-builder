@@ -47,7 +47,7 @@ function install_postgres_ext_postgis() {
     export DIR=geos-${VERSION}
     export URL=http://download.osgeo.org/geos/${FILE}
 
-    disable_96
+    #disable_96
 }
 
 function install_postgres() {
