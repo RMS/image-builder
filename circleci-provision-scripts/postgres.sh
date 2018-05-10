@@ -17,7 +17,7 @@ function disable_96() {
     mkdir /etc/postgresql-9.6
 
     mv /usr/lib/postgresql/9.6 /usr/lib/postgresql-9.6/9.6
-    mv /etc/postgresql/9.6 /etc/postgresql-9.6/9.6
+    #mv /etc/postgresql/9.6 /etc/postgresql-9.6/9.6
 }
 
 function install_postgres_ext_postgis() {
@@ -47,7 +47,7 @@ function install_postgres_ext_postgis() {
     export DIR=geos-${VERSION}
     export URL=http://download.osgeo.org/geos/${FILE}
 
-    disable_96
+    #disable_96
 }
 
 function install_postgres() {
