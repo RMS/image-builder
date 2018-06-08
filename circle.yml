@@ -25,9 +25,8 @@ dependencies:
           export TAG=$CIRCLE_BRANCH
         fi
 
+       # builds and pushes
         ./build.sh
-
-        sudo docker push ${PUSH_REPO}/buildbox:$(TAG)
       :
         timeout: 7200
 
