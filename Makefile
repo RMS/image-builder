@@ -1,9 +1,4 @@
-SHELL := /bin/bash
-IMAGE_REPO = circleci/build-image
-PUSH_REPO = eastus-artifactory.azure.rmsonecloud.net:6001
-SHA = $(shell git rev-parse --short HEAD)
-VERSION = $(CIRCLE_BUILD_NUM)-$(SHA)
-NO_CACHE =
+
 
 define docker-push-with-retry
     for i in 1 2 3; do docker push $(1); if [ $$? -eq 0 ]; then exit 0; fi; echo "Retrying...."; done; exit 1;
