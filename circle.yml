@@ -25,7 +25,7 @@ dependencies:
           export TAG=$CIRCLE_BRANCH
         fi
 
-       # builds and pushes
+        # builds and pushes
         ./build.sh
       :
         timeout: 7200
