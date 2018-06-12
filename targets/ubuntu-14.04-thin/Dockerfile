@@ -66,11 +66,13 @@ LABEL circleci.user="ubuntu"
 
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
-COPY repos/data-store /home/ubuntu/data-store
 COPY settings.xml /usr/local/apache-maven/conf/settings.xml
+COPY repos/data-store /home/ubuntu/data-store
 RUN cd /home/ubuntu/data-store \
-        &&  /usr/local/apache-maven/bin/mvn -DskipTests install
-        
+        &&  /usr/local/apache-maven/bin/mvn -DskipTests install \
+        && cd /home/ubuntu  \
+        && rm -rf data-store
+
 USER root
 
 CMD ["/sbin/init"]
