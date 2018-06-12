@@ -66,14 +66,12 @@ LABEL circleci.user="ubuntu"
 
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
-
-
 USER ubuntu
-COPY settings.xml /home/ubuntu/.m2/settings.xml
 
+COPY settings.xml /home/ubuntu/.m2/settings.xml
 COPY repos/data-store /home/ubuntu/data-store-prime
 RUN cd /home/ubuntu/data-store-prime \
-        &&  /usr/local/apache-maven/bin/mvn -DskipTests install
+        &&  /usr/local/apache-maven/bin/mvn -f ~/.m2/settings.xml -DskipTests install
 
 USER root
 #RUN rm -rf /home/ubuntu/data-store-prime
