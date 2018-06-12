@@ -70,9 +70,10 @@ ADD settings.xml /usr/local/apache-maven/conf/settings.xml
 ADD repos/data-store /home/ubuntu/data-store
 RUN cd /home/ubuntu/data-store \
         &&  /usr/local/apache-maven/bin/mvn -DskipTests install \
-        && cd /home/ubuntu  \
-        && sudo rm -Rf data-store
+        && cd /home/ubuntu
 
 USER root
+RUN rm -rf /home/ubuntu/data-store
+
 
 CMD ["/sbin/init"]
