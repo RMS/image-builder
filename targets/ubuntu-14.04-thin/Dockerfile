@@ -71,7 +71,7 @@ COPY repos/data-store /home/ubuntu/data-store
 RUN cd /home/ubuntu/data-store \
         &&  /usr/local/apache-maven/bin/mvn -DskipTests install \
         && cd /home/ubuntu  \
-        && rm -rf data-store
+        && sudo rm -rf data-store
 
 USER root
 
