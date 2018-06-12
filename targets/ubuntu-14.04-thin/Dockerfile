@@ -67,13 +67,11 @@ LABEL circleci.user="ubuntu"
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
 ADD settings.xml /usr/local/apache-maven/conf/settings.xml
-ADD repos/data-store /home/ubuntu/data-store
-RUN cd /home/ubuntu/data-store \
-        &&  /usr/local/apache-maven/bin/mvn -DskipTests install \
-        && cd /home/ubuntu
+ADD repos/data-store /home/ubuntu/data-store-prime
+RUN cd /home/ubuntu/data-store-prime \
+        &&  /usr/local/apache-maven/bin/mvn -DskipTests install
 
 USER root
-RUN rm -rf /home/ubuntu/data-store
-
+#RUN rm -rf /home/ubuntu/data-store-prime
 
 CMD ["/sbin/init"]
