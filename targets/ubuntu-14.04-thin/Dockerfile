@@ -70,12 +70,12 @@ RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 COPY settings.xml /usr/local/apache-maven/conf/settings.xml
 
 USER ubuntu
-#COPY settings.xml /home/ubuntu/.m2/settings.xml
-COPY repos/data-store /home/ubuntu/data-store-prime
+COPY settings.xml ~/.m2/settings.xml
 RUN mkdir -p ~/.m2/repository
-# SHELL ["/bin/bash", "-c"]
-RUN /bin/bash -c 'cd /home/ubuntu/data-store-prime \
-        &&  /usr/local/apache-maven/bin/mvn -X  -DskipTests install'
+
+COPY repos/data-store /home/ubuntu/data-store-prime
+RUN cd /home/ubuntu/data-store-prime \
+        &&  /usr/local/apache-maven/bin/mvn -DskipTests install
 
 USER root
 #RUN rm -rf /home/ubuntu/data-store-prime
