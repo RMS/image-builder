@@ -70,7 +70,7 @@ RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 # COPY settings.xml /usr/local/apache-maven/conf/settings.xml
 
 USER ubuntu
-COPY settings.xml ~/.m2/settings.xml
+COPY settings.xml /home/ubuntu/.m2/settings.xml
 RUN mkdir -p ~/.m2/repository
 
 COPY repos/data-store /home/ubuntu/data-store-prime
