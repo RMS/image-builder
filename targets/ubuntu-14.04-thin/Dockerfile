@@ -73,9 +73,9 @@ USER ubuntu
 #COPY settings.xml /home/ubuntu/.m2/settings.xml
 COPY repos/data-store /home/ubuntu/data-store-prime
 RUN mkdir -p ~/.m2/repository
-SHELL ["/bin/bash", "-c"]
-RUN cd /home/ubuntu/data-store-prime \
-        &&  /usr/local/apache-maven/bin/mvn -X  -DskipTests install
+# SHELL ["/bin/bash", "-c"]
+RUN /bin/bash -c 'cd /home/ubuntu/data-store-prime \
+        &&  /usr/local/apache-maven/bin/mvn -X  -DskipTests install'
 
 USER root
 #RUN rm -rf /home/ubuntu/data-store-prime
