@@ -74,7 +74,7 @@ COPY repos/data-store /home/ubuntu/data-store-prime
 RUN rm -rf /home/ubuntu/data-store-prime/target
 
 USER ubuntu
-ADD ./cache /home/ubuntu/.m2/respoitory
+COPY ./cache /home/ubuntu/.m2/respoitory
 RUN bash -c 'mkdir ~/.m2 && cd /home/ubuntu/data-store-prime \
         &&  /usr/local/apache-maven/bin/mvn -DskipTests install'
 
