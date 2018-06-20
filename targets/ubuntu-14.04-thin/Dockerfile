@@ -76,15 +76,12 @@ RUN rm -rf /home/ubuntu/data-store-prime/target
 USER ubuntu
 COPY ./cache /home/ubuntu/.m2/respoitory
 RUN bash -c 'cd /home/ubuntu/data-store-prime \
-        &&  /usr/local/apache-maven/bin/mvn -DskipTests install'
+        &&  /usr/local/apache-maven/bin/mvn -DskipTests install \
+        && sudo rm -rf /home/ubuntu/data-store-prime/target'
 
 
 USER root
-RUN rm -rf /home/ubuntu/data-store-prime/target
 # RUN       mv /root/.m2/repository /home/ubuntu/.m2 && \
 #        chown -R ubuntu:ubuntu /home/ubuntu/.m2/repository
-
-
-#RUN rm -rf /home/ubuntu/data-store-prime
 
 CMD ["/sbin/init"]
