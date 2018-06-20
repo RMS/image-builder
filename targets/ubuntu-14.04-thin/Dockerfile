@@ -55,6 +55,9 @@ RUN circleci-install redis
 ADD circleci-provision-scripts/firefox.sh circleci-provision-scripts/chrome.sh /opt/circleci-provision-scripts/
 RUN circleci-install firefox && circleci-install chrome
 
+RUN git clone -b develop git@github.com:RMS/rms-one-deployment.git ~/rms-one-deployment
+RUN /home/ubuntu/rms-one-deployment/scripts/ci-setup
+
 # Undivert upstart
 # You shouldn't change the line unless you understad the consequence
 RUN rm /usr/sbin/policy-rc.d && rm /sbin/initctl && dpkg-divert --rename --remove /sbin/initctl
