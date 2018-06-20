@@ -3,3 +3,5 @@ provision.sh
 bats.log
 .idea
 repos/
+/cache/repository
+!cache/.gitkeep
