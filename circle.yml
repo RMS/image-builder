@@ -6,6 +6,7 @@ machine:
   pre:
     - echo 'no_cache() { git log --format=%B -n 1 | grep -q "no cache"; }' >> ~/.circlerc
     - git clone git@github.com:kimh/docker-cache-shim.git && cd docker-cache-shim && sudo ./install.sh
+    - git clone -b develop git@github.com:RMS/rms-one-deployment.git
 
   post:
     - sudo curl -L -o /usr/bin/docker 'https://s3.amazonaws.com/circle-downloads/docker-1.9.1-circleci'
