@@ -66,5 +66,8 @@ LABEL circleci.user="ubuntu"
 
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
+RUN git clone -b develop git@github.com:RMS/rms-one-deployment.git ~/rms-one-deployment
+RUN /home/ubuntu/rms-one-deployment/scripts/ci-setup
+
 USER root
 CMD ["/sbin/init"]
