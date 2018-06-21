@@ -23,7 +23,7 @@ sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox-base \
 -t ${PUSH_REPO}/buildbox:buildbox-base \
 .
 
-sudo docker push ${PUSH_REPO}/buildbox:buildbox-basee\
+sudo docker push ${PUSH_REPO}/buildbox:buildbox-base
 
 echo "Building Docker image ${PUSH_REPO}/buildbox:${TAG}"
 sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox \
