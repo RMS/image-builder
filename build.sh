@@ -19,7 +19,7 @@ fi
 rm -rf repos/data-store-prime/target
 
 echo "Building CircleCI base build image (to save time)"
-sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox-base \
+sudo docker build ${NO_CACHE} \
 -t ${PUSH_REPO}/buildbox:buildbox-base \
 .
 
