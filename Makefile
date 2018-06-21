@@ -21,6 +21,7 @@ endif
 	sudo docker build $(NO_CACHE) --build-arg IMAGE_TAG=buildbox \
 	-t $(PUSH_REPO)/buildbox:$(TAG) \
 	-f targets/ubuntu-14.04-thin/Dockerfile \
+	--build-arg GIT_CRYPT_KEY=${GIT_CRYPT_KEY	} \
 	.
 
 push-ubuntu-14.04-thin:
