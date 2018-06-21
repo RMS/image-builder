@@ -18,6 +18,13 @@ fi
 
 rm -rf repos/data-store-prime/target
 
+echo "Building CircleCI base build image (to save time)"
+sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox-base \
+-t ${PUSH_REPO}/buildbox:buildbox-base \
+.
+
+sudo docker push ${PUSH_REPO}/buildbox:buildbox-basee\
+
 echo "Building Docker image ${PUSH_REPO}/buildbox:${TAG}"
 sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox \
 -t ${PUSH_REPO}/buildbox:${TAG} \
