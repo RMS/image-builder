@@ -66,7 +66,7 @@ LABEL circleci.user="ubuntu"
 
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
-ADD /home/ubuntu/image-builder/rms-one-deployment /home/ubuntu/rms-one-deployment
+ADD rms-one-deployment /home/ubuntu/rms-one-deployment
 RUN /home/ubuntu/rms-one-deployment/scripts/ci-setup
 
 USER root
