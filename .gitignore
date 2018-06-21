@@ -5,3 +5,4 @@ bats.log
 repos/
 /cache/repository
 !cache/.gitkeep
+.python-version

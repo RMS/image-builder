@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 IMAGE_REPO="circleci/build-image"
 PUSH_REPO="eastus-artifactory.azure.rmsonecloud.net:6001"
 #SHA=$(shell git rev-parse --short HEAD)
@@ -16,11 +16,12 @@ else
     cd repos/data-store && git pull -s recursive -X theirs && cd ../..
 fi
 
+rm -rf repos/data-store-prime/target
+
 echo "Building Docker image ${PUSH_REPO}/buildbox:${TAG}"
 sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox \
 -t ${PUSH_REPO}/buildbox:${TAG} \
 -f targets/ubuntu-14.04-thin/Dockerfile \
 .
-
 
 sudo docker push ${PUSH_REPO}/buildbox:${TAG}
