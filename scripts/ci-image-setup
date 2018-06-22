@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+KEYSTORE_PASSWORD=changeit
+KEYSTORE_PATH="${JAVA_HOME}/jre/lib/security/jssecacerts"
+
+if [ -d "$KEYSTORE_PATH" ]; then
+	sudo keytool -importcert -file "${DIR}/../config/azure.dev.cer" -keystore ${KEYSTORE_PATH} -storepass ${KEYSTORE_PASSWORD} -noprompt
+	sudo keytool -importcert -file "${DIR}/../config/testrail.cer" -keystore ${KEYSTORE_PATH} -storepass ${KEYSTORE_PASSWORD} -noprompt  -trustcacerts -alias "test-rails"
+fi
+
+mkdir -p "$HOME/.m2"
+cp "$DIR/../config/settings.xml" "$HOME/.m2/"
+
+sudo bash -c "cat $DIR/../config/ci-hosts >> /etc/hosts"
+
+cat <<EOF >> .circlerc
+export JAVA_OPTS="-Xmx4G"
+export MAVEN_OPTS="-Xmx4G"
+export BUILDUSER="pipelinedeploy"
+export BUILDEMAIL="TechOPS@rms.com"
+pyenv global 3.6.4
+EOF
+
+git config --global user.email "ci@rms.com"
+git config --global user.name "Circle CI"
+
+pyenv global 3.6.4
+if [ -d "/home/ubuntu/virtualenvs/venv-system/" ]; then
+  source /home/ubuntu/virtualenvs/venv-system/bin/activate
+  pip3 install -r /home/ubuntu/rms-one-deployment/requirements.txt
+fi
+pip3 install -r /home/ubuntu/rms-one-deployment/requirements.txt --user
