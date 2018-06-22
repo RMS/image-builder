@@ -6,6 +6,7 @@ machine:
   pre:
     - echo 'no_cache() { git log --format=%B -n 1 | grep -q "no cache"; }' >> ~/.circlerc
     - git clone git@github.com:kimh/docker-cache-shim.git && cd docker-cache-shim && sudo ./install.sh
+    # TODO Change the branch back to "develop" once we merge everything
     - git clone -b add-roc-dependencies-to-circleci-image git@github.com:RMS/rms-one-deployment.git /home/ubuntu/image-builder/rms-one-deployment
 
   post:
