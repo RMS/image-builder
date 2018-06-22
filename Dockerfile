@@ -13,3 +13,5 @@ RUN /bin/bash -c 'source ~/.bash_profile && cd /home/ubuntu/data-store-prime \
         &&  mvn -DskipTests install \
         && rm -rf /home/ubuntu/data-store-prime/target'
 
+USER root
+CMD ["/sbin/init"]
