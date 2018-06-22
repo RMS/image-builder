@@ -67,9 +67,7 @@ LABEL circleci.user="ubuntu"
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
 ADD rms-one-deployment /home/ubuntu/rms-one-deployment
-RUN sudo -H -i -u ubuntu which pyenv
-RUN sudo -H -i -u ubuntu pyenv
-RUN /home/ubuntu/rms-one-deployment/scripts/ci-image-setup
+RUN sudo -H -i -u ubuntu /home/ubuntu/rms-one-deployment/scripts/ci-image-setup
 
 USER root
 CMD ["/sbin/init"]
