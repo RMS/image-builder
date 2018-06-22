@@ -1,5 +1,6 @@
 #!/bin/bash
 set -xe
+CCI_BASE='buildbox-base'
 IMAGE_REPO="circleci/build-image"
 PUSH_REPO="eastus-artifactory.azure.rmsonecloud.net:6001"
 #SHA=$(shell git rev-parse --short HEAD)
@@ -16,14 +17,14 @@ else
     cd repos/data-store && git pull -s recursive -X theirs && cd ../..
 fi
 
-rm -rf repos/data-store-prime/target
 
-#echo "Building CircleCI base build image (to save time)"
-#sudo docker build ${NO_CACHE} \
-#-t ${PUSH_REPO}/buildbox:buildbox-base \
-#.
+echo "Building base circleci image(to save time) ${PUSH_REPO}/buildbox:buildbox-base"
+sudo docker build ${NO_CACHE} \
+-t ${PUSH_REPO}/buildbox:buildbox-base \
+.
 
-#sudo docker push ${PUSH_REPO}/buildbox:buildbox-base
+sudo docker push ${PUSH_REPO}/buildbox:buildbox-base
+
 
 echo "Building Docker image ${PUSH_REPO}/buildbox:${TAG}"
 sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox \
