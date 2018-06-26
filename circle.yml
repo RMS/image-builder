@@ -50,4 +50,4 @@ deployment:
     branch: add-roc-dependencies
     commands:
       - ansible  -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox" all
-          timeout: 3600
+        timeout: 3600
