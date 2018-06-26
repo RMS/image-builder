@@ -47,7 +47,7 @@ test:
 
 deployment:
   production:
-    branch: master
+    branch: add-roc-dependencies
     commands:
-      - for TARGET in $(echo $BUILD_TARGET); do make deploy-${TARGET}; done:
+      - ansible  -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox" all
           timeout: 3600
