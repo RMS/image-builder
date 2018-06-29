@@ -29,6 +29,6 @@ def test_rms_one_deployment_directory_permissions(host):
 
 def test_git_decrypt(host):
     assert host.exists('git-crypt')  # Make sure the command exists and is on the PATH
-    assert host.run('git-crypt').rc == 0  # TODO not working yet
+    assert host.run('/home/ubuntu/rms-one-deployment/scripts/ci-unlock').rc == 0  # TODO not working yet
 
 
