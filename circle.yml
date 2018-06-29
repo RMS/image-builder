@@ -22,8 +22,8 @@ dependencies:
 
     - ? |
         set -e
-        if [ "$CIRCLE_BRANCH" == "ci-azure" ]; then
-          echo "In 'ci-azure' branch, building production 'buildbox' image with tag 'latest'"
+        if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
+          echo "In 'rms-master' branch, building production 'buildbox' image with tag 'latest'"
           export TAG=latest
         else
           echo "Building a test image with tag $CIRCLE_BRANCH"
@@ -46,7 +46,7 @@ test:
 
 deployment:
   production:
-    branch: ci-azure
+    branch: rms-master
     commands:
       - cd /home/ubuntu/image-builder
       - ansible  -vvvv -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox" all
