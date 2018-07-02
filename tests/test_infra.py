@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 import pytest
@@ -8,15 +9,15 @@ import testinfra
 def host():
     # TODO Pass in the image name/ID that was just built
     docker_id = subprocess.check_output(
-        'docker run -d --name test --rm eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest sleep 5000'.split()).decode().strip()
-    yield testinfra.get_host("docker://" + docker_id)
+        'docker run -d --name test -e GIT_CRYPT_KEY={} --rm eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest sleep 5000'.format(os.environ['GIT_CRYPT_KEY']).split()).decode().strip()
+    # Note I am setting it to use the `ubuntu` user specifically below because the default user is `root`
+    # TODO Should we change the image to just default to the `ubuntu` user?
+    yield testinfra.get_host("docker://ubuntu@" + docker_id,)
     subprocess.check_call(['docker', 'rm', '-f', docker_id])
 
-# Test which user is the default when we run a container
-# TODO Should we change to 'ubuntu'?
 def test_default_user(host):
     user = host.user()
-    assert user.name == 'root'
+    assert user.name == 'ubuntu'
 
 
 def test_rms_one_deployment_directory_permissions(host):
@@ -29,6 +30,4 @@ def test_rms_one_deployment_directory_permissions(host):
 
 def test_git_decrypt(host):
     assert host.exists('git-crypt')  # Make sure the command exists and is on the PATH
-    assert host.run('/home/ubuntu/rms-one-deployment/scripts/ci-unlock').rc == 0  # TODO not working yet
-
-
+    assert host.run('/home/ubuntu/rms-one-deployment/scripts/ci-unlock;').rc == 0
