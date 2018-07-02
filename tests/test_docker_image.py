@@ -15,6 +15,7 @@ def host():
     yield testinfra.get_host("docker://ubuntu@" + docker_id,)
     subprocess.check_call(['docker', 'rm', '-f', docker_id])
 
+
 def test_default_user(host):
     user = host.user()
     assert user.name == 'ubuntu'
@@ -28,6 +29,6 @@ def test_rms_one_deployment_directory_permissions(host):
     assert oct(rms_one_deployment_directory.mode) == '0o755'
 
 
-def test_git_decrypt(host):
+def test_git_crypt(host):
     assert host.exists('git-crypt')  # Make sure the command exists and is on the PATH
     assert host.run('/home/ubuntu/rms-one-deployment/scripts/ci-unlock;').rc == 0
