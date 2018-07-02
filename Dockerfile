@@ -10,7 +10,7 @@ RUN sudo chown -R ubuntu:ubuntu data-store-prime && \
         sudo chown -R ubuntu:ubuntu /home/ubuntu/.m2
 
 RUN /bin/bash -c 'source ~/.bash_profile && cd /home/ubuntu/data-store-prime \
-        &&  mvn clean package -DskipTests \
+        &&  mvn dependency:resolve \
         && rm -rf /home/ubuntu/data-store-prime/target'
 
 USER root
