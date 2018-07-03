@@ -14,6 +14,9 @@ machine:
 
 dependencies:
   override:
+    # Fail early if no build targets
+    - make --dry-run ${BUILD_TARGET:-notarget}
+
     - sudo docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
 
     - ? |
@@ -25,8 +28,13 @@ dependencies:
           export TAG=$CIRCLE_BRANCH
         fi
 
-        # builds and pushes
-        ./build.sh
+        if $(no_cache); then
+          make no_cache=true build-$BUILD_TARGET
+        else
+          make build-$BUILD_TARGET
+        fi
+
+        make push-$BUILD_TARGET
       :
         timeout: 7200
 
