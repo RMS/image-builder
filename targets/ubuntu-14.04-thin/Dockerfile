@@ -66,6 +66,8 @@ RUN sudo chown -R ubuntu:ubuntu data-store-prime && \
 RUN /bin/bash -c 'source ~/.bash_profile && cd /home/ubuntu/data-store-prime \
         && mvn dependency:go-offline'
 
+USER root
+
 # Undivert upstart
 # You shouldn't change the line unless you understad the consequence
 RUN rm /usr/sbin/policy-rc.d && rm /sbin/initctl && dpkg-divert --rename --remove /sbin/initctl
@@ -76,7 +78,5 @@ RUN echo $IMAGE_TAG > /opt/circleci/image_version
 LABEL circleci.user="ubuntu"
 
 RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
-
-USER root
 
 CMD ["/sbin/init"]
