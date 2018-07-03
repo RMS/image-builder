@@ -1,5 +1,3 @@
-
-
 define docker-push-with-retry
     for i in 1 2 3; do docker push $(1); if [ $$? -eq 0 ]; then exit 0; fi; echo "Retrying...."; done; exit 1;
 endef
