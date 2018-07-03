@@ -9,7 +9,7 @@ RUN sudo chown -R ubuntu:ubuntu data-store-prime && \
         sudo chown -R ubuntu:ubuntu /home/ubuntu/.m2
 
 RUN /bin/bash -c 'source ~/.bash_profile && cd /home/ubuntu/data-store-prime \
-        && mvn dependency:go-offline
+        && mvn dependency:go-offline'
 
 USER root
 CMD ["/sbin/init"]
