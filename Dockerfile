@@ -4,7 +4,6 @@ USER ubuntu
 WORKDIR /home/ubuntu
 COPY settings.xml .m2/
 COPY repos/data-store /home/ubuntu/data-store-prime
-# COPY cache/repository /home/ubuntu/.m2/repository
 
 RUN sudo chown -R ubuntu:ubuntu data-store-prime && \
         sudo chown -R ubuntu:ubuntu /home/ubuntu/.m2
