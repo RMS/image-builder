@@ -20,6 +20,10 @@ dependencies:
     - sudo docker login -e $BUILDEMAIL -u $BUILDUSER -p $BUILDPASS
 
     - ? |
+
+        mkdir -p repos
+        git clone git@github.com:RMS/data-store.git repos/data-store
+
         if [ "$CIRCLE_BRANCH" == "ci-azure" ]; then
           echo "In 'ci-azure' branch, building production 'buildbox' image with tag 'latest'"
           export TAG=latest
