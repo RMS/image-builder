@@ -68,5 +68,4 @@ RUN echo 'source /home/ubuntu/.circlerc &>/dev/null' >> /root/.bashrc
 
 USER root
 
-
 CMD ["/sbin/init"]
