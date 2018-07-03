@@ -17,14 +17,12 @@ else
     cd repos/data-store && git pull -s recursive -X theirs && cd ../..
 fi
 
-
 echo "Building base circleci image(to save time) ${PUSH_REPO}/buildbox:buildbox-base"
 sudo docker build ${NO_CACHE} \
 -t ${PUSH_REPO}/buildbox:buildbox-base \
 .
 
 sudo docker push ${PUSH_REPO}/buildbox:buildbox-base
-
 
 echo "Building Docker image ${PUSH_REPO}/buildbox:${TAG}"
 sudo docker build ${NO_CACHE} --build-arg IMAGE_TAG=buildbox \
