@@ -2,3 +2,7 @@ provision.sh
 .vagrant
 bats.log
 .idea
+repos/
+/cache/repository
+!cache/.gitkeep
+.python-version

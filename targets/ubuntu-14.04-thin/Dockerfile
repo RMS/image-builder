@@ -55,6 +55,19 @@ RUN circleci-install redis
 ADD circleci-provision-scripts/firefox.sh circleci-provision-scripts/chrome.sh /opt/circleci-provision-scripts/
 RUN circleci-install firefox && circleci-install chrome
 
+USER ubuntu
+WORKDIR /home/ubuntu
+COPY settings.xml .m2/
+COPY repos/data-store /home/ubuntu/data-store-prime
+
+RUN sudo chown -R ubuntu:ubuntu data-store-prime && \
+        sudo chown -R ubuntu:ubuntu /home/ubuntu/.m2
+
+RUN /bin/bash -c 'source ~/.bash_profile && cd /home/ubuntu/data-store-prime \
+        && mvn dependency:go-offline'
+
+USER root
+
 # Undivert upstart
 # You shouldn't change the line unless you understad the consequence
 RUN rm /usr/sbin/policy-rc.d && rm /sbin/initctl && dpkg-divert --rename --remove /sbin/initctl
@@ -71,4 +84,5 @@ RUN chown -R ubuntu:ubuntu /home/ubuntu/rms-one-deployment
 RUN sudo -H -i -u ubuntu /home/ubuntu/rms-one-deployment/scripts/ci-image-setup
 
 USER root
+
 CMD ["/sbin/init"]

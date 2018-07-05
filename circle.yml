@@ -22,6 +22,9 @@ dependencies:
 
     - ? |
         set -e
+        mkdir -p repos
+        git clone git@github.com:RMS/data-store.git repos/data-store
+
         if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
           echo "In 'rms-master' branch, building production 'buildbox' image with tag 'latest'"
           export TAG=latest
