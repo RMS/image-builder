@@ -4,7 +4,7 @@ machine:
     BUILD_TARGET: "ubuntu-14.04-thin"
 
   pre:
-    - echo 'no_cache() { git log --format=%B -n 1 | grep -q "no cache"; }' >> ~/.circlerc
+    #- echo 'no_cache() { git log --format=%B -n 1 | grep -q "no cache"; }' >> ~/.circlerc # TODO turn this back on later
     - git clone git@github.com:kimh/docker-cache-shim.git && cd docker-cache-shim && sudo ./install.sh
     - git clone -b develop git@github.com:RMS/rms-one-deployment.git /home/ubuntu/image-builder/rms-one-deployment
     - pip install testinfra # TODO Temporary for now, this should just be pre-baked into the image once this PR is merged
@@ -23,31 +23,36 @@ dependencies:
 
     - ? |
         set -e
-        if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
-          echo "In 'rms-master' branch, building production 'buildbox' image with tag 'latest'"
-          export TAG=latest
-        else
-          echo "Building a test image with tag $CIRCLE_BRANCH"
-          export TAG=$CIRCLE_BRANCH
-        fi
+
+        echo "Building an image with tag $CIRCLE_BRANCH to be tested"
+        export TAG=$CIRCLE_BRANCH
 
         if $(no_cache); then
           make no_cache=true build-$BUILD_TARGET
         else
           make build-$BUILD_TARGET
         fi
-
-        make push-$BUILD_TARGET
       :
         timeout: 7200
 
 test:
   override:
-    - python -m pytest tests/test_docker_image.py
+    - export TAG=$CIRCLE_BRANCH; python -m pytest tests/test_docker_image.py
 
 deployment:
+  all:
+    branch: /.*?/
+    commands:
+      - export TAG=$CIRCLE_BRANCH; make push-$BUILD_TARGET
   production:
     branch: rms-master
     commands:
+      - ? |
+        set -e
+        if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
+          echo "In 'rms-master' branch, tag production 'buildbox' image with tag 'latest'"
+          sudo docker tag eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:rms-master eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest
+          export TAG=latest; make push-$BUILD_TARGET
+        fi
       - cd /home/ubuntu/image-builder
-      - ansible  -vvvv -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox" all
+      - ansible  -vvvv -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest" all

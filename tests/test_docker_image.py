@@ -9,7 +9,7 @@ import testinfra
 def host():
     # TODO Pass in the image name/ID that was just built
     docker_id = subprocess.check_output(
-        'docker run -d --name test -e GIT_CRYPT_KEY={} --rm eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest sleep 5000'.format(os.environ['GIT_CRYPT_KEY']).split()).decode().strip()
+        'docker run -d --name test -e GIT_CRYPT_KEY={} --rm eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:{} sleep 5000'.format(os.environ['GIT_CRYPT_KEY'], os.environ['TAG']).split()).decode().strip()
     # Note I am setting it to use the `ubuntu` user specifically below because the default user is `root`
     # TODO Should we change the image to just default to the `ubuntu` user?
     yield testinfra.get_host("docker://ubuntu@" + docker_id,)
