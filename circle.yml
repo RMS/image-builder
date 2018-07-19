@@ -43,7 +43,7 @@ dependencies:
 
 test:
   override:
-    - pytest tests/test_docker_image.py
+    - python -m pytest tests/test_docker_image.py
 
 deployment:
   production:
