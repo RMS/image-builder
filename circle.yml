@@ -54,5 +54,7 @@ deployment:
           sudo docker tag eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:rms-master eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest
           export TAG=latest; make push-$BUILD_TARGET
         fi
+      :
+        timeout: 7200
       - cd /home/ubuntu/image-builder
       - ansible  -vvvv -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest" all
