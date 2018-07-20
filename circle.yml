@@ -37,7 +37,7 @@ dependencies:
 
 test:
   override:
-    - export TAG=$CIRCLE_BRANCH; python -m pytest tests/test_docker_image.py
+    - export TAG=$CIRCLE_BRANCH; sudo python -m pytest tests/test_docker_image.py
 
 deployment:
   all:
