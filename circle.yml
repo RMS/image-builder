@@ -37,7 +37,7 @@ dependencies:
 
 test:
   override:
-    - export TAG=$CIRCLE_BRANCH; sudo /opt/circleci/.pyenv/shims/python -m pytest tests/test_docker_image.py
+    - export TAG=$CIRCLE_BRANCH; sudo -E /opt/circleci/.pyenv/shims/python -m pytest tests/test_docker_image.py
 
 deployment:
   all:
