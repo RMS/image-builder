@@ -25,7 +25,6 @@ dependencies:
         set -e
 
         echo "Building an image with tag $CIRCLE_BRANCH to be tested"
-
         if $(no_cache); then
           make no_cache=true build-$BUILD_TARGET
         else

@@ -72,4 +72,5 @@ RUN chown -R ubuntu:ubuntu /home/ubuntu/rms-one-deployment
 RUN sudo -H -i -u ubuntu /home/ubuntu/rms-one-deployment/scripts/ci-image-setup
 
 USER root
+
 CMD ["/sbin/init"]
