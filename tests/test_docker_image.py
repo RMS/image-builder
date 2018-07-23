@@ -16,7 +16,7 @@ def host():
 
 def test_default_user(host):
     user = host.user()
-    assert user.name == 'fail'
+    assert user.name == 'ubuntu'
 
 
 def test_rms_one_deployment_directory_permissions(host):
