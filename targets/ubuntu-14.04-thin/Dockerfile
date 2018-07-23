@@ -22,6 +22,7 @@ ADD circleci-provision-scripts/python.sh /opt/circleci-provision-scripts/python.
 RUN circleci-install python 2.7.12
 RUN circleci-install python 3.6.4
 RUN sudo -H -i -u ubuntu pyenv global 3.6.4
+ADD tests/requirements.txt tests/requirements.txt
 RUN pip install -r tests/requirements.txt
 
 ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
