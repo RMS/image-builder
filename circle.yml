@@ -25,7 +25,6 @@ dependencies:
         set -e
 
         echo "Building an image with tag $CIRCLE_BRANCH to be tested"
-        export TAG=$CIRCLE_BRANCH
 
         if $(no_cache); then
           make no_cache=true build-$BUILD_TARGET
@@ -37,13 +36,13 @@ dependencies:
 
 test:
   override:
-    - export TAG=$CIRCLE_BRANCH; sudo -E /opt/circleci/.pyenv/shims/python -m pytest tests/test_docker_image.py
+    - sudo -E /opt/circleci/.pyenv/shims/python -m pytest tests/test_docker_image.py
 
 deployment:
   all:
     branch: /.*?/
     commands:
-      - export TAG=$CIRCLE_BRANCH; make push-$BUILD_TARGET
+      - make push-$BUILD_TARGET
   production:
     branch: rms-master
     commands:
