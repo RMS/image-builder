@@ -26,5 +26,5 @@
 
 ## Notify
 
-  @embedded-QE @reviewers
+  @reviewers
   
