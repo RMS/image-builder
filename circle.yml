@@ -2,6 +2,7 @@ machine:
   environment:
     IMAGE_REPO: "circleci/build-image"
     BUILD_TARGET: "ubuntu-14.04-thin"
+    PUSH_REPO: "eastus-artifactory.azure.rmsonecloud.net:6001"
 
   pre:
     - echo 'no_cache() { git log --format=%B -n 1 | grep -q "no cache"; }' >> ~/.circlerc
@@ -12,7 +13,7 @@ machine:
   post:
     - sudo curl -L -o /usr/bin/docker 'https://s3.amazonaws.com/circle-downloads/docker-1.9.1-circleci'
     - sudo service docker start
-    - sudo docker login --username="$BUILDUSER" --password="$BUILDPASS" --email="$BUILDEMAIL" eastus-artifactory.azure.rmsonecloud.net:6001
+    - sudo docker login --username="$BUILDUSER" --password="$BUILDPASS" --email="$BUILDEMAIL" "$PUSH_REPO"
 
 dependencies:
   override:
@@ -45,13 +46,13 @@ deployment:
           set -e
           if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
             echo "In 'rms-master' branch, tag production 'buildbox' image with tag 'latest'"
-            sudo docker tag eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:rms-master eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest
-            sudo docker push ${PUSH_REPO}/buildbox:latest
+            sudo docker tag "$PUSH_REPO"/buildbox:rms-master "$PUSH_REPO"/buildbox:latest
+            sudo docker push $PUSH_REPO/buildbox:latest
           fi
         :
           timeout: 7200
       - cd /home/ubuntu/image-builder
-      - ansible  -v -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest" all
+      - ansible  -v -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull "$PUSH_REPO"/buildbox:latest" all
     all:
       branch: /.*?/
       commands:
