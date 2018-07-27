@@ -46,7 +46,7 @@ deployment:
           if [ "$CIRCLE_BRANCH" == "rms-master" ]; then
             echo "In 'rms-master' branch, tag production 'buildbox' image with tag 'latest'"
             sudo docker tag eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:rms-master eastus-artifactory.azure.rmsonecloud.net:6001/buildbox:latest
-            export TAG=latest; make push-$BUILD_TARGET
+            sudo docker push ${PUSH_REPO}/buildbox:latest
           fi
         :
           timeout: 7200
