@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 IMAGE_REPO = circleci/build-image
-PUSH_REPO = eastus-artifactory.azure.rmsonecloud.net:6001
 SHA = $(shell git rev-parse --short HEAD)
 VERSION = $(CIRCLE_BUILD_NUM)-$(SHA)
 NO_CACHE =
