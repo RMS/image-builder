@@ -3,10 +3,4 @@
 
 ## Description
 
-## Version information (if applicable)
-
-## How to Run
-
 ## Gotchas
-
-## Dry Run
