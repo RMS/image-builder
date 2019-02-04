@@ -52,7 +52,7 @@ deployment:
         :
           timeout: 7200
       - cd /home/ubuntu/image-builder
-      - ansible  -v -i "10.92.1.31,10.92.1.32,10.92.1.30,10.92.1.27" -a "sudo docker pull "$PUSH_REPO"/buildbox:latest" all
+      - ansible  -v -i "10.92.1.31,10.92.1.32,10.92.1.24,10.92.1.27" -a "sudo docker pull "$PUSH_REPO"/buildbox:latest" all
     all:
       branch: /.*?/
       commands:
