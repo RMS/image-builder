@@ -3,12 +3,10 @@
 function install_chrome_browser() {
     echo '>>> Installing Chrome'
 
-    local url="http://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-    local deb_path="/tmp/google-chrome.deb"
-
-    curl --output $deb_path $url
-
-    dpkg -i $deb_path || apt-get -f install
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+    apt-get update
+    apt-get install -y google-chrome-stable 
 
     # Disable sandboxing - it conflicts with unprivileged lxc containers
     sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --enable-logging --no-sandbox|g' \
